@@ -7,7 +7,7 @@ function silentupgrade
     $serviceproperties = Get-WmiObject Win32_Service | where-object {$_.name -eq "HyperfishAgent"} | select StartName,StartMode,State,Status
     $svc = Get-Service HyperfishAgent
 
-    #Create Download Folder If Not Exist
+    #Create Download Folder If Not Existing
     $dlpath = $appdatapath + "\Installer"
     $dlpathwc = $dlpath + "\*"
     If(!(test-path $dlpath))
