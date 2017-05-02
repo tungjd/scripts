@@ -2,22 +2,25 @@
 
 # PostUpdateScript.ps1 - Hyperfish Inc.
 #
-# Setup:
-#    1. Place this script in C:\Users\<hyperfishsvc>\AppData\Local\Hyperfish
-#    2. Make sure the ActiveDirectory PowerShell module is installed 
-#    3. Modify C:\Users\<hyperfishsvc>\AppData\Local\Hyperfish\servicesettings.json
-#       with a text editor, and change '"PostUpdateScript": null,'  
-#       to include the path: '"PostUpdateScript": "\"C:\\Users\\<hyperfishsvc>\\AppData\\Local\\Hyperfish\\PostUpdateScript.ps1\"",'
-#    4. After saving servicesettings.json, restart the Hyperfish Service
-#
-# Parameters:
-#    1. property name, e.g., "thumbnailphoto" 
-#    2. users objectGUID from active directory
-#
 # The script is optionally called by the Hyperfish windows service when 
 # a user update is made. It is passed the property that was updated in AD
 # and the objectGUID of the user. Note: the value of the update is not passed
-# and this should be looked up from AD using Get-ADUser if needed. 
+# and this should be looked up from AD using Get-ADUser if needed.
+#
+# Setup:
+#    1. Place this script in C:\Users\<hyperfishsvc>\AppData\Local\Hyperfish
+#    2. Make sure the ActiveDirectory PowerShell module is installed
+#    3. Give the Hyperfish Service Account permissions to run PowerShell scripts:
+#          - Open a cmd window as admin, and run "runas /user:hyperfishserviceusername powershell.exe" 
+#          - In the new PowerShell window, run "Set-ExecutionPolicy Unrestricted -Scope CurrentUser"
+#    4. Modify C:\Users\<hyperfishsvc>\AppData\Local\Hyperfish\servicesettings.json
+#       with a text editor, and change '"PostUpdateScript": null,'  
+#       to include the path: "PostUpdateScript": "\"C:\\Users\\<hyperfishsvc>\\AppData\\Local\\Hyperfish\\PostUpdateScript.ps1\"",
+#    5. After saving servicesettings.json, restart the Hyperfish Service
+#
+# Parameters:
+#    1. property name, e.g., "thumbnailphoto" 
+#    2. users objectGUID from active directory 
 
 Write-Host $property
 Write-Host $user
